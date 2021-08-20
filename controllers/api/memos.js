@@ -1,5 +1,6 @@
 const uuid = require("uuid");
-const Memos = require("../../models/Memo");
+const memos = require("../../models/Memo");
+const errors = require("../../models/Error");
 
 // @desc Get all the memos
 // @route GET /api/memos
@@ -33,15 +34,25 @@ exports.createMemo = (req, res) => {
     date: req.body.date,
     time: req.body.time,
   };
+  errors.length = 0;
 
-  if (!newMemos.memo) {
-    return res.status(400).json({
-      msg: "Please include memo",
-    });
+  const errorMsg = {
+    errorMsg: "Please include memo, date, time, location and location",
+  };
+
+  if (
+    !newMemos.name ||
+    !newMemos.memo ||
+    !newMemos.location ||
+    !newMemos.date ||
+    !newMemos.time
+  ) {
+    errors.push(errorMsg);
+    res.redirect("/");
+  } else {
+    memos.push(newMemos);
+    res.redirect("/");
   }
-
-  memos.push(newMemos);
-  res.redirect("/");
 };
 
 // @desc Update existing memo

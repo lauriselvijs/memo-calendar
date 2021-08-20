@@ -23,6 +23,15 @@
   <input type="submit" value="Add Memo" class="btn btn-primary btn-block" />
 </form>
 
+{{#each errors}}
+  {{#if this.errorMsg}}
+    <div id="error-msg" class="alert alert-danger" role="alert">
+      {{this.errorMsg}}
+    </div>
+  {{else}}
+  {{/if}}
+{{/each}}
+
 <h4 id="demo">Memos</h4>
 <ul class="list-group list-group-flush mb-3">
   {{#each memos}}
@@ -44,7 +53,7 @@
               id="delete-button"
               type="button"
               class="btn btn-danger"
-              onClick="onDelete({{this.id}})"
+              onClick="onDelete('{{this.id}}')"
             >Delete</button>
           </div>
         </div>
@@ -54,6 +63,6 @@
 </ul>
 
 <script>
-  function onDelete(id){ document.getElementById(id).remove(); }
+  function onDelete(id){document.getElementById(id).remove(); }
 
 </script>

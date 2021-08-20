@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const exphbs = require("express-handlebars");
 const memos = require("./models/Memo");
+const errors = require("./models/Error");
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.get("/", (req, res) =>
   res.render("index", {
     title: "Memo Calendar",
     memos,
+    errors,
   })
 );
 
